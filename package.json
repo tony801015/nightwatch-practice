@@ -1,0 +1,19 @@
+{
+  "name": "nightwatch-practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "demo-nw.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "start": "nightwatch -t demo-nw.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "selenium-server": "^3.0.1"
+  }
+}

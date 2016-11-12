@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="1"
+            tests="1">
+
+  <testsuite name="demotest"
+    errors="0" failures="1" hostname="" id="" package="demotest" skipped="0"
+    tests="1" time="7.750" timestamp="Sat, 12 Nov 2016 14:03:00 GMT">
+  
+    <testcase name="demoTestGoogle" time="7.750" assertions="3">
+
+    
+
+      <failure message="Testing if element &lt;#main&gt; contains text: &quot;The Night Watch&quot;.">    at Object.__dirname.demoTestGoogle (/Users/luo/Desktop/practice/nightwatch-practice/demotest.js:7:17)</failure>
+
+    
+    </testcase>
+  
+  
+  </testsuite>
+</testsuites>
