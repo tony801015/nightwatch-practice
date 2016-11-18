@@ -5,15 +5,15 @@
 
   <testsuite name="demo-nw"
     errors="1" failures="0" hostname="" id="" package="demo-nw" skipped="0"
-    tests="1" time="0.01300" timestamp="Sat, 12 Nov 2016 13:49:00 GMT">
+    tests="1" time="0.01200" timestamp="Fri, 18 Nov 2016 12:41:15 GMT">
   
-    <testcase name="Demo test Google" time="0.01300" assertions="0">
+    <testcase name="test Yahoo" time="0.01200" assertions="0">
     </testcase>
       <system-err>
-          Error while running [Demo Nw / Demo test Google]:
+          Error while running [Demo Nw / test Yahoo]:
 
-  TypeError: Cannot read property &#39;keys&#39; of undefined
-    at Object.module.exports.Demo test Google.client [as Demo test Google] (/Users/luo/Desktop/practice/nightwatch-practice/demo-nw.js:12:20)
+  TypeError: client.url(...).pause(...).click(...).pause(...).click(...).waitForElementVisible(...).soucre is not a function
+    at Object.test Yahoo (/Users/luo/Desktop/git/nightwatch-practice/demo-nw.js:14:14)
     at Module.call (/usr/local/lib/node_modules/nightwatch/lib/runner/module.js:62:34)
     at /usr/local/lib/node_modules/nightwatch/lib/runner/testcase.js:70:29
     at _fulfilled (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:834:54)
@@ -22,7 +22,7 @@
     at /usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:556:49
     at runSingle (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:137:13)
     at flush (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:125:13)
-    at nextTickCallbackWith0Args (node.js:420:9)
+    at _combinedTickCallback (internal/process/next_tick.js:67:7)
       </system-err>
   
   
