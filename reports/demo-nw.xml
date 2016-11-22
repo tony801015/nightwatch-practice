@@ -5,15 +5,15 @@
 
   <testsuite name="demo-nw"
     errors="1" failures="0" hostname="" id="" package="demo-nw" skipped="0"
-    tests="1" time="0.01200" timestamp="Fri, 18 Nov 2016 12:41:15 GMT">
+    tests="1" time="0.01700" timestamp="Fri, 18 Nov 2016 23:21:57 GMT">
   
-    <testcase name="test Yahoo" time="0.01200" assertions="0">
+    <testcase name="test lol" time="0.01700" assertions="0">
     </testcase>
       <system-err>
-          Error while running [Demo Nw / test Yahoo]:
+          Error while running [Demo Nw / test lol]:
 
-  TypeError: client.url(...).pause(...).click(...).pause(...).click(...).waitForElementVisible(...).soucre is not a function
-    at Object.test Yahoo (/Users/luo/Desktop/git/nightwatch-practice/demo-nw.js:14:14)
+  TypeError: Cannot read property &#39;url&#39; of undefined
+    at Object.test lol (/Users/luo/Desktop/git/nightwatch-practice/demo-nw.js:55:28)
     at Module.call (/usr/local/lib/node_modules/nightwatch/lib/runner/module.js:62:34)
     at /usr/local/lib/node_modules/nightwatch/lib/runner/testcase.js:70:29
     at _fulfilled (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:834:54)
