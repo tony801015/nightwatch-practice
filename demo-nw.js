@@ -1,39 +1,40 @@
 const cheerio = require("cheerio")
 const request = require("request")
+const fs = require("fs")
+const db = require('./database/db');
 var userObject = [];
 /**** note ****/
-//check word is 準備中 or 查看詳細資料 因為會不同tag
-//check type is ng
-//fs write document (add)
-
+//robot
+//無詳細資料
 module.exports = {
+    //get recently ten war's data
     'test lol': (client) => {
         var userName = 'tkringo';
-
         var url;
         client
             .url('https://lol.moa.tw/summoner/show/' + userName)
             .pause(6000)
-            .click('#tabs > ul > li:nth-child(4) > a')
-            .pause(5000)
+            .click('#tabs > ul > li:nth-child(4) > a') //click tab
+            .pause(15000)
             .source((result) => {
-                const $ = cheerio.load(result.value)
+                //get url's html
+                const $ = cheerio.load(result.value);
+                //choose to need table
                 var level1 = $('#match_overview > div.table-responsive > table > tbody > tr')
 
-                var person;
+                var person; //creat Object
+                //level1.each run table's tr
                 level1.each(function (i, elem) {
-                    const _$ = cheerio.load($(this).html());
-                    if (i === 20) {
+                    const _$ = cheerio.load($(this).html()); //get tr html
+                    if (i === 20) { // tr final is 19, i === 20 break
                         return;
                     }
-
-                    if (i % 2 == 0) {
-                        // person = new Object();
-                        person = {
+                    if (i % 2 == 0) { //table's tr rule is 0 1 2 3 4 5..., check for even number
+                        person = { //object attr
                             id: "",
                             name: "",
-                            type: "",
-                            Avatars: "",
+                            type1: "",
+                            type2: "",
                             peopleNum: "",
                             Time: "",
                             Date: "",
@@ -41,33 +42,37 @@ module.exports = {
                             url: "",
                             detil: []
                         };
+                        //push value
                         person.name = userName;
-
                         person.id = _$('th > span:nth-child(1)').text();
                         person.result = _$('th > span:nth-child(2)').text();
-                        person.type = _$('th > span:nth-child(4)').text();
+                        person.type1 = _$('th > span:nth-child(3)').text();
+                        person.type2 = _$('th > span:nth-child(4)').text();
                         person.peopleNum = _$('th > span:nth-child(5)').text();
                         person.Date = _$('th > div').text();
                     } else {
-                        person.Avatars = _$('td:nth-child(1) > div').attr('data-code');
                         person.url = _$('td.h3.text-center > div > div > a').attr('href');
-                        userObject.push(person);
+                        var ready = _$('td.h3.text-center > div > div > a').text();
+                        //check to push correct data 
+                        if (person.type1 == '召喚峽谷' && ready != '準備資料中') {
+                            userObject.push(person);
+                        }
                     }
                 });
             })
 
     },
 
+    //get this war's people detail data
     'mid ': (client) => {
-        for (var i = 0; i < userObject.length; i++) {
-
-            level0(userObject, i, client, (callback) => {
+        for (var i = 0; i < userObject.length; i++) { // userObject.length first step already get 
+            level2(userObject, i, client, (callback) => {
                 return;
             })
 
-            function level0(userObject, i, client, callback) {
+            function level2(userObject, i, client, callback) {
                 client
-                    .url('https://lol.moa.tw' + userObject[i].url) //0~9
+                    .url('https://lol.moa.tw' + userObject[i].url) //get every data's url
                     .pause(5000)
                     .source((result) => {
 
@@ -100,14 +105,30 @@ module.exports = {
                             userObject[i].detil.push(detilObject);
 
                             if (n == 9) {
-                                console.log(userObject[i]);
-                                callback(null);
+                                console.log('userObject[i]');
+
+                                dbInsert(callback, () => {
+                                    db.close();
+                                    console.log('close');
+                                    callback(null); //back level2
+                                })
+
+                                function dbInsert(callback) {
+                                    db.select(userObject[i].id, (callback) => {
+                                        console.log(callback)
+                                        if (callback == false) {
+                                            db.insert(userObject[i].id, userObject[i].name, userObject[i].type1, userObject[i].type2, userObject[i].peopleNum, userObject[i].Time, userObject[i].Date, userObject[i].result, userObject[i].url, JSON.stringify(userObject[i].detil));
+                                        }
+                                    })
+
+                                }
                             }
                         }
                     })
             }
         }
     },
+
     'end ': (client) => {
         client
             .pause(5000)

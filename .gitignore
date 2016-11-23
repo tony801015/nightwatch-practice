@@ -1,2 +1,4 @@
 node_modules/
 selenium-debug.log
+file/
+reports/
